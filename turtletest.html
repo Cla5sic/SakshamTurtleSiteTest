@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Viewport meta tag is crucial for mobile responsiveness -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turtle Robotics</title>
+    <!-- Load Tailwind CSS from CDN for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* A light gray background */
+            color: #1f2937; /* A dark gray text color for contrast */
+        }
+        /* Custom animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        .animate-fadeIn.delay-1s { animation-delay: 0.2s; }
+        .animate-fadeIn.delay-2s { animation-delay: 0.4s; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white text-gray-800 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center space-x-3 mb-4 md:mb-0">
+                <!-- SVG Turtle Logo -->
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="#800000" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C10.8954 2 10 2.89543 10 4V6H8V4C8 2.89543 8.89543 2 10 2H12C13.1046 2 14 2.89543 14 4V6H12V4C12 2.89543 11.1046 2 10 2ZM12 8C13.1046 8 14 8.89543 14 10V12H10V10C10 8.89543 10.8954 8 12 8ZM12 14C14.2091 14 16 15.7909 16 18V22H8V18C8 15.7909 9.79086 14 12 14ZM12 16C11.4477 16 11 16.4477 11 17C11 17.5523 11.4477 18 12 18C12.5523 18 13 17.5523 13 17C13 16.4477 12.5523 16 12 16Z" fill-rule="evenodd" clip-rule="evenodd"></path>
+                    <path d="M5.5 12C6.32843 12 7 12.6716 7 13.5V17.5C7 18.3284 6.32843 19 5.5 19H4.5C3.67157 19 3 18.3284 3 17.5V13.5C3 12.6716 3.67157 12 4.5 12H5.5ZM18.5 12C19.3284 12 20 12.6716 20 13.5V17.5C20 18.3284 19.3284 19 18.5 19H17.5C16.6716 19 16 18.3284 16 17.5V13.5C16 12.6716 16.6716 12 17.5 12H18.5Z" fill-rule="evenodd" clip-rule="evenodd"></path>
+                </svg>
+                <!-- Title text is now black -->
+                <span class="text-2xl font-bold text-black">Turtle Robotics</span>
+            </div>
+            <nav class="flex space-x-4 md:space-x-6">
+                <!-- Navigation links are back to the original gray and maroon hover -->
+                <a href="#home" class="nav-link text-gray-600 hover:text-[#800000] px-3 py-2 transition duration-300">Home</a>
+                <a href="#about" class="nav-link text-gray-600 hover:text-[#800000] px-3 py-2 transition duration-300">About Us</a>
+                <a href="#projects" class="nav-link text-gray-600 hover:text-[#800000] px-3 py-2 transition duration-300">Projects</a>
+                <a href="#hatchling" class="nav-link text-gray-600 hover:text-[#800000] px-3 py-2 transition duration-300">Hatchling Program</a>
+                <a href="#contact" class="nav-link text-gray-600 hover:text-[#800000] px-3 py-2 transition duration-300">Contact Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main id="content" class="flex-grow"></main>
+
+    <!-- Footer with the new dark-themed design from the image -->
+    <footer class="bg-white text-gray-800 py-12">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Column 1: Intro, button, social icons -->
+            <div class="space-y-4">
+                <!-- Yellow button with black text -->
+                <a href="#hatchling" class="inline-block bg-[#800000] text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105">
+                    Explore Program
+                </a>
+                <p class="text-gray-600 mt-4">Advancing the future of robotics through cutting-edge research and innovation at Texas A&M University.</p>
+                <div class="flex space-x-4 mt-4">
+                    <!-- Social media icons (SVG) with white fill -->
+                    <a href="#" class="text-[#800000] hover:text-red-900 transition-colors duration-300">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.505 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <a href="#" class="text-[#800000] hover:text-red-900 transition-colors duration-300">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12c6.627 0 12-5.373 12-12S18.627 0 12 0zm5.66 8.91c0-.28-.21-.49-.49-.49h-1.63c-.28 0-.5.21-.5.49v6.58c0 .28.22.49.5.49h1.63c.28 0 .49-.21.49-.49V8.91zM9.5 8.91c0-.28-.21-.49-.49-.49h-1.63c-.28 0-.5.21-.5.49v6.58c0 .28.22.49.5.49h1.63c.28 0 .49-.21.49-.49V8.91zm.77-2.66c0-1.04-1.25-1.89-2.79-1.89-1.54 0-2.78.85-2.78 1.89 0 1.04 1.24 1.89 2.78 1.89 1.54 0 2.79-.85 2.79-1.89z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="text-[#800000] hover:text-red-900 transition-colors duration-300">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M19 0H5C2.24 0 0 2.24 0 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5V5c0-2.76-2.24-5-5-5zM8 19H5v-9h3v9zM6.5 8.25C5.46 8.25 4.5 7.42 4.5 6.25c0-1.17.96-2.08 2-2.08s2 1 2 2.08c0 1.17-.96 2-2 2zm13.5 10.75h-3v-5c0-1.25-.56-2.25-1.75-2.25-1.19 0-1.75 1-1.75 2.25v5h-3v-9h3v1.2c.59-1.09 1.63-1.64 2.78-1.64 2.03 0 3.5 1.23 3.5 3.99V19z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-[#800000] hover:text-red-900 transition-colors duration-300">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M22.46 6.03c-.63.28-1.31.47-2.03.55.72-.43 1.27-1.11 1.53-1.93-.68.4-1.43.69-2.22.85-.64-.68-1.55-1.11-2.57-1.11-1.94 0-3.51 1.57-3.51 3.51 0 .27.03.54.08.79-2.92-.15-5.5-1.54-7.23-3.66-.3.51-.47 1.1-.47 1.72 0 1.22.62 2.29 1.57 2.92-.58 0-1.13-.17-1.61-.45v.04c0 1.7 1.21 3.12 2.81 3.45-.29.08-.6.13-.92.13-.22 0-.44-.02-.65-.06.45 1.39 1.74 2.41 3.28 2.41-1.2 1.05-2.71 1.68-4.35 1.68-.28 0-.56-.02-.84-.05 1.55.99 3.39 1.57 5.37 1.57 6.44 0 9.96-5.33 9.96-9.96 0-.15-.0-.3-.01-.45.69-.5 1.29-1.13 1.76-1.85z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <!-- Column 2: Quick Links -->
+            <div>
+                <h3 class="font-bold text-lg mb-4 text-black">Quick Links</h3>
+                <ul class="space-y-2 text-gray-600">
+                    <li><a href="#about" class="hover:underline text-[#800000]">About</a></li>
+                    <li><a href="#projects" class="hover:underline text-[#800000]">Research Projects</a></li>
+                    <li><a href="#hatchling" class="hover:underline text-[#800000]">Accelerator Program</a></li>
+                    <li><a href="#contact" class="hover:underline text-[#800000]">Contact</a></li>
+                </ul>
+            </div>
+            <!-- Column 3: Resources -->
+            <div>
+                <h3 class="font-bold text-lg mb-4 text-black">Resources</h3>
+                <ul class="space-y-2 text-gray-600">
+                    <li><a href="#" class="hover:underline text-[#800000]">Publications</a></li>
+                    <li><a href="#" class="hover:underline text-[#800000]">Research Blog</a></li>
+                    <li><a href="#" class="hover:underline text-[#800000]">Student Opportunities</a></li>
+                    <li><a href="#" class="hover:underline text-[#800000]">Industry Partnerships</a></li>
+                </ul>
+            </div>
+            <!-- Column 4: Contact Info -->
+            <div>
+                <h3 class="font-bold text-lg mb-4 text-black">Contact Info</h3>
+                <div class="space-y-2 text-gray-600">
+                    <p>TURTLE Robotics</p>
+                    <p>Texas A&M University</p>
+                    <p>College Station, TX 77845</p>
+                    <p>Email: <a href="mailto:TurtleRobotics@tamu.edu" class="hover:underline text-[#800000]">TurtleRobotics@tamu.edu</a></p>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright row -->
+        <div class="container mx-auto px-4 mt-8 pt-8 border-t border-gray-300 text-center text-gray-500 text-sm">
+            <p>&copy; 2024 Turtle Robotics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Data for all projects, including the new details from the PDF
+        const projectData = {
+            fash: {
+                title: "FASH",
+                lead: "Aarathi Devakumar",
+                email: "aarathi_devakumar13@tamu.edu",
+                description: "FASH aims to design aesthetically pleasing and assistive robotic garments. The main objective is to design and develop a wearable robotic corset that provides posture adjustment, motion sensing, and biomechanical feedback. This system will be used for assistive applications, such as sedentary lifestyles, people with back/spinal issues, and performance applications for athletes and performers (dance, gymnastics, archery).",
+                goals: [
+                    "Researching about sensors, various materials",
+                    "Creating a testbed with embedded systems",
+                    "Simulation model of the back using the corset system through PyBullet"
+                ],
+                lookingFor: [
+                    "MEEN, ECEN, ESET, MXET, BMEN in particular, but I am open to anyone interested in learning more",
+                    "Prior experience in the basics of fashion design (sewing, stitching) is a plus",
+                    "Prior experience in CAD, torque, gear ratios, prototyping, and testing",
+                    "Prior experience in embedded systems, circuit design, and sensors",
+                    "Some experience in either Python or C++"
+                ]
+            },
+            snout: {
+                title: "SNOUT",
+                lead: "Anirudh Subramanian",
+                email: "asubramanian@tamu.edu",
+                description: "SNOUT will design a robotic vehicle equipped with advanced olfactory sensors. The robot will use its 'sense of smell' to detect and identify scents for applications ranging from harmful drugs, environmental monitoring, gas leak detection, and search and rescue operations. This robot will pick up new smells and classify them independently. This adaptability, combined with integrated navigation, will enable it to operate in harsh conditions autonomously.",
+                goals: [
+                    "Develop a functional IMS sensor module that converts airborne chemicals into electrical signals.",
+                    "Prototype the SNOUT robotic platform, such as the intake, drift tube, detector, and electronics, onto a mobile chassis.",
+                    "Begin training a machine learning model (Random Forest Classifier) to identify and classify chemical compounds based on IMS data such as drift time and ion intensity.",
+                    "Test SNOUT in controlled environments with known chemicals to evaluate detection accuracy."
+                ],
+                lookingFor: [
+                    "Embedded Systems",
+                    "Circuit Design",
+                    "CAD Designing",
+                    "Python/C++ programming",
+                    "Machine learning",
+                    "Students in CHEN, ECEN, ESET, CSCE, or related majors"
+                ]
+            },
+            swrm: {
+                title: "SWRM",
+                lead: "Bennett Moorman",
+                email: "btmoorman04@tamu.edu",
+                description: "SWRM is a project which aims to explore applications of swarm robotics in ground level robots. In particular we are attempting to create small or medium sized robots that are capable of operating both as a singular unit as well as in a synchronized collective. We are currently focused on exploring applications such as room rearranging and Art Exhibitions.",
+                goals: [
+                    "The main goal for this semester is to nail down a lot of our specific design goals and parameters.",
+                    "Because it is our first semester, we will be working on prototyping the first iteration of our individual bot.",
+                    "This will include a lot of emphasis on how the swarm will connect together, as well as generating ideas for how they will communicate with each other and operate as a group."
+                ],
+                lookingFor: [
+                    "MEEN majors, or anyone else with a good understanding of mechanics and/or SolidWorks modeling (particularly with 3d printing in mind)",
+                    "ESET, CPEN, CSCE, ECEN, or anyone with an interest or understanding of microcontrollers and/or a background in Python or C++",
+                    "Anyone with an interest in the project and a willingness to learn"
+                ]
+            },
+            star: {
+                title: "STAR",
+                lead: "Brighton Sikarskie",
+                email: "brighton.sikarskie@tamu.edu",
+                description: "Survey and Terrain Analysis Robot (STAR) is an advanced object avoidance robot. The primary objective of this robotics project is to autonomously navigate and traverse diverse and challenging landscapes, including hills and valleys, while adeptly avoiding obstacles. The GitHub can be found here: https://github.com/Topographic-Robot.",
+                goals: [
+                    "Design and verify all PWBs",
+                    "Order and solder the PCBs",
+                    "Test the PCBAs",
+                    "Write the low-level libraries to communicate with the board",
+                    "Start cooking up the CV models"
+                ],
+                lookingFor: [
+                    "The “best” majors/interests I feel for this project are: ESET, CPEN, ECEN, CSCP, and MXET.",
+                    "Power Engineers: The robot uses a total of 430W, 90W for servos, 100W for powering TDA4VM, 240W input.",
+                    "PCB Designers: Only the 20V line PCB is done. We still need 6V and 5V PCBs.",
+                    "RTOS Developers: Write low-level C libraries for power, movement, and sensors to interface with the SK-TDA4VM board.",
+                    "CV/ML Engineers: Use stereo cameras for object detection, pathfinding, and autonomous driving.",
+                    "Soldering: Complex dual-sided board with tiny ICs (e.g., VQFN-20). I (Brighton Sikarskie) will handle most of it, but help is welcome. We’ll use paste, hot air, and a hot plate (single side only).",
+                    "EE Review: Check all circuits and traces for current ratings, efficiency, and cost. Tools like TI Webench help, but we must verify everything due to high PWB costs.",
+                    "PID Control: Robot needs fall recovery via gyroscope/accelerometer and C-based PID for movement correction.",
+                    "Testing: We need thorough validation of all PCB assemblies, batteries, and components under full load. This includes stress testing, functional verification, and identifying failure points before integration."
+                ]
+            },
+            orio: {
+                title: "ORIO",
+                lead: "Dalys Guajardo",
+                email: "dalys@tamu.edu",
+                description: "ORIO is focused on developing a 3D-printed equatorial mount designed to track celestial objects across the night sky. The mount will allow a camera to follow stars and other objects by rotating at the same angular rate as Earth’s rotation, ensuring that the target remains centered in the camera’s field of view during long exposures. The system will be designed to be fixed on a tripod and accommodate common DSLR and mirrorless cameras. The tracking motion will be achieved using stepper motors controlled via a microcontroller (Arduino or Raspberry Pi, to be finalized).",
+                goals: [
+                    "Research the star tracker's mechanical and electrical configurations",
+                    "Identify the electrical components required",
+                    "Model possible mechanisms",
+                    "Assemble possible electrical configurations"
+                ],
+                lookingFor: [
+                    "ELEN, MEEN, MXET, ESET, CSPE, but all majors considered!",
+                    "Interest/Passion/Experience in astronomy or astrophotography",
+                    "SolidWorks experience",
+                    "Basic Mechanism Design",
+                    "3D printing experience",
+                    "Comfortable with assembly using hand tools",
+                    "Basic circuit assembly knowledge",
+                    "Experience/knowledge of platforms like Arduino or Raspberry Pi",
+                    "Interest/Knowledge of stepper motors"
+                ]
+            },
+            amps: {
+                title: "AMPS",
+                lead: "Emiliano Grajales-Mora",
+                email: "j_grajalesmora@tamu.edu",
+                description: "Adaptive Magnetic Power System (AMPS) is a project with the goal of exploring the fascinating field of power electronics. Throughout this project, we will deal with electric power generation, conversion, storage, management, and transmission. This will be done by creating a modular and adaptive power system that can be retrofitted onto any manual bicycle, enabling it to generate and optimize power as a user pedals. In other words, the aim is to design and build a modular, affordable, and efficient way to transform a manual bicycle into an e-bike with power generation capabilities.",
+                goals: [
+                    "This upcoming semester will be very research oriented. A standard axial generator and driven gear system will be built to conduct AC to DC conversion experiments with an Arduino microcontroller.",
+                    "Members will then begin brainstorming and prototyping the power generation module, including its form factor and implementation with the bicycle’s mechanical system; all ideas will be tested with an oscilloscope to measure their efficiency."
+                ],
+                lookingFor: [
+                    "All majors welcome! Prefer ELEN, CPEN, MEEN, and any ETID.",
+                    "Anyone with an interest in:",
+                    "Generators and power drives",
+                    "Wiring (soldering, cable management)",
+                    "Gear mechanical system construction",
+                    "Computer Aided Drafting (CAD) for prototyping",
+                    "AC to DC conversion and management (rectification, optimization) - involves programming and simulation at both high and low levels (C, Matlab, & others)",
+                    "Note: no expertise necessary, we will all learn together!"
+                ]
+            },
+            vest: {
+                title: "VEST",
+                lead: "Ethan Guerrero",
+                email: "ethanjg2814@tamu.edu",
+                description: "Vest will be a lightweight, autonomous wearable designed to give pet owners real-time insights into their dog’s vital signs. It will monitor heart rate, respiration, body temperature, GPS location, and speed. If any vitals fall into dangerous ranges, built-in LED indicators will provide visual alerts, and alerts will be sent to the mobile app. All data will be transmitted wirelessly to a smartphone for convenient tracking.",
+                goals: [
+                    "Study canine physiology relevant to vital sign monitoring",
+                    "Learn signal processing fundamentals, filtering, and real-time data visualization",
+                    "Design a wearable vest to meet user needs (user = the dog)",
+                    "Conduct literature reviews on veterinary health metrics (adjusting for size and breed)",
+                    "Perform iterative prototyping and hardware testing",
+                    "Develop basic detection and alert algorithms",
+                    "Design and test circuits for sensor integration",
+                    "Learn JavaScript for calculations, mobile app development, and interface design"
+                ],
+                lookingFor: [
+                    "Biomedical engineering experience (biosensors, physiology)",
+                    "Electrical engineering experience (circuit design, microcontrollers)",
+                    "Proficiency in Python and/ or JavaScript",
+                    "Interest in animal health and wearable technology",
+                    "Background or interest in signal processing and data filtering",
+                    "Motivation to learn and collaborate in a multidisciplinary team"
+                ]
+            },
+            cntr: {
+                title: "CNTR",
+                lead: "Jack Bluethmann",
+                email: "j.bluethmann1@tamu.edu",
+                description: "CNTR is a modular, VR-controlled humanoid robot designed to operate in environments too dangerous or inaccessible for humans, such as disaster zones, deep-sea missions, or the exterior of a spacecraft. Controlled in real time through a VR headset, the robot’s head and body mirror the user’s movements to create an intuitive and immersive control experience. CNTR features interchangeable arm modules that can be swapped out to perform various tasks, such as grabbing, scanning, or using specialized tools. The project requires the full development of hardware, electronics, and software systems, including drive systems, motion control, sensor integration, and custom user interfaces.",
+                goals: [
+                    "Design an Interchangeable arm fixture",
+                    "Design First Modular Arm",
+                    "Create circuit testbed",
+                    "Create VR control testbed"
+                ],
+                lookingFor: [
+                    "interested in mechanical design, electronics, coding, control systems, prototyping, or just passionate about robotics",
+                    "CAD experience",
+                    "3d Printing",
+                    "Able to pick components for efficient power consumption",
+                    "Interested in modeling VR controller for robot control",
+                    "Anyone with experience using Unity",
+                    "NOTE*: None of these are required, but a willingness to learn is an absolute must."
+                ]
+            },
+            ache: {
+                title: "ACHE",
+                lead: "Jacob Fuerst",
+                email: "jacob1st@tamu.edu",
+                description: "The Artificial Cardiovascular and Hemodynamics Experiment (ACHE) is working to design a soft total artificial heart (TAH). The project will focus on developing an artificial heart that mimics the function of a human heart by pumping through contracting and relaxing, while working towards achieving the output parameters of current industry TAH models.",
+                goals: [
+                    "This semester will be focusing on research into Total Artificial Hearts, soft robotics, and actuation methods.",
+                    "We will develop a basic fluid simulation to demonstrate blood flow and prototype an initial heart chamber to showcase the pumping cycle."
+                ],
+                lookingFor: [
+                    "Engineers with an interest in Biomedical focused robotics - specific major will not be a determining factor.",
+                    "CAD for the heart model (Solidworks)",
+                    "Controls to manage flow rates and output",
+                    "Fluid dynamics and simulation (Ansys)"
+                ]
+            },
+            eden: {
+                title: "EDEN",
+                lead: "Vedant Soni",
+                email: "ved.soni@tamu.edu",
+                description: "EDEN is for developing advanced, AI-enabled humanoid robots. The vision is to create a robot with mobility, perception, and intelligent interaction. We merge mechanical chassis construction with ROS 2 and machine-learning development to build adaptive, end-to-end robotic systems. The scope spans hardware selection, ROS 2-based software architecture, and advanced machine learning.",
+                goals: [
+                    "For Fall 2025, our immediate objective is to make a simple test and training chassis and establish the software stack.",
+                    "This means integrating actuators and an IMU along with setting up a Ubuntu 22.04 LTS and ROS 2 environment.",
+                    "The primary objective will be to implement deep reinforcement learning algorithms within this architecture to train the robot for fundamental movement patterns."
+                ],
+                lookingFor: [
+                    "Hardware Team",
+                    "CAD Design & 3D Printing Prototyping",
+                    "Electronics Integration & Hardware Troubleshooting",
+                    "Software Team",
+                    "ROS 2 Control Loop development & sensor prototyping",
+                    "Embedded C++/Python for low level control",
+                    "AI/ML & Controls Team",
+                    "RL model implementation, training, on-device deployment",
+                    "Control theory algorithms for stability and balance"
+                ]
+            },
+            ankl: {
+                title: "ANKL",
+                lead: "James Lee",
+                email: "jlee915@tamu.edu",
+                description: "ANKL uses closed-chain robotics principles to design, program, and manufacture a 6 DOF prosthetic ankle. The prosthetic is based on the six-legged Stewart Platform, which is the same mechanism used in advanced driving and space simulators. This project’s goal is to use this style of robot to help return the full range of motion to below-the-knee amputees.",
+                goals: [
+                    "I would like to fully develop and implement more sophisticated control algorithms with our existing simulations to decrease rotation and linear drift.",
+                    "To help test these algorithms, we will need a fully functional test bench for all the electronics and hardware that will be used on said Stewart Platform.",
+                    "If all goes as planned with the test bench and the controls, I would like to have a fully functional Stewart Platform done and ready to show off at the showcase. Creation of the testbench and full platform requires some basic knowledge of electronics hardware, wiring and 3D CAD."
+                ],
+                lookingFor: [
+                    "3D CAD - Solidworks or equivalent",
+                    "Electronic hardware and wiring experience",
+                    "Machining",
+                    "Robotics programming in Python or C++",
+                    "Github experience",
+                    "Dynamics systems and controls experience used to develop robotics controllers"
+                ]
+            },
+            beest: {
+                title: "BEEST",
+                lead: "Lorenzo Hidalgo",
+                email: "lhidalgo@tamu.edu",
+                description: "BEEST is an Electromechanical Strandbeest robot based on the sculptures created by artist Theo Jansen. The robot utilizes a Raspberry Pi and corresponding student-built Python scripts to execute various mechanical functions via Jansen Linkages and a controller input. The subgroup is in the process of creating an automated exterior shell in hopes of giving BEEST a more “turtle-like” appearance.",
+                goals: [
+                    "Mechanically, we would like to recreate the gears using a different design that will allow free rotation via bearings and fix the issue of self-torquing that they experienced last semester.",
+                    "Additionally, we plan to further the design/manufacturing process of the automated exterior shell through the implementation of additional body parts (legs, tail, shell, etc).",
+                    "Electronically, the goal is to streamline the Raspberry Pi startup process and finalize the code for the automated turtle head. Functionality will include movement, audio, lighting, and possibility for additional features. This will require creation of additional Python functions/scripts that will work alongside Pygame to translate the controller input to mechanical movements of the robot."
+                ],
+                lookingFor: [
+                    "Experience with part design and assemblies within Solidworks",
+                    "Experience with Python or other languages",
+                    "Experience or interest in Raspberry Pi",
+                    "Experience or interest in 3D Printing and/or Laser Cutting"
+                ]
+            },
+            blnc: {
+                title: "BLNC",
+                lead: "Jonathon Foltyn",
+                email: "jonathonfoltyn@tamu.edu",
+                description: "BLNC (Balance) is developing autonomous, self-balancing rovers for extreme terrain exploration and interaction. This project is exploring rover architectures, system models, and controls for robots that are inherently unstable. The two main robots are focused on balancing on two wheels and a sphere.",
+                goals: [
+                    "Exploring control algorithms for V1 balancing robot (similar concept to a segway)",
+                    "Modelling and designing ball balancing robot (similar to BB-8)",
+                    "Modelling self correcting two wheel robot (V1 but varying inertia)."
+                ],
+                lookingFor: [
+                    "Experience in modelling systems and controller development",
+                    "Experience with system design and Solidworks CAD",
+                    "Experience with robotics programming using Python"
+                ]
+            },
+            cmbt: {
+                title: "CMBT",
+                lead: "Kian Dunkin",
+                email: "kian.dunkin@tamu.edu",
+                description: "The Combat Robotics project (CMBT) designs and competes with fighting robots. Our robots use kinetic mechanisms to damage and disable opposing robots. We primarily design for the 3lb weight class, but we have a 30lb robot as well. This project primarily leverages mechanical design skills such as 3D modeling, prototyping, and rudimentary electronic systems design.",
+                goals: [
+                    "Complete CAD of our current 3lb robot design",
+                    "Run durability tests and run weight optimizations",
+                    "Perform electronics stress tests",
+                    "Design a testing enclosure and test full robot functionality",
+                    "Organize a competition for spring 2026"
+                ],
+                lookingFor: [
+                    "3D modeling experience (SolidWorks preferred)",
+                    "Creative thinking and teamwork skills",
+                    "Passion and willingness to learn more about combat robotics (it’s fun I promise!)"
+                ]
+            },
+            dron: {
+                title: "DRON",
+                lead: "Ian Wilhite",
+                email: "Ian.wilhite0@tamu.edu",
+                description: "The Disaster Response Observation Network (DRON) aims to leverage unmanned aerial vehicles (UAVs) to aid first responders in their scene assessment and emergency response of structural fires. Autonomous swarm functionality allows DRON to assist in emergency situations with minimal required human input. DRON is designed around ease of use, speed of deployment, and quality of data gathered and presented. We are currently working on refining the quality of data processing from our visual sources, validating the data collected, and implementing waypoints into our flight stack.",
+                goals: [
+                    "Flight test with manual controls.",
+                    "vSLAM implementation for data collected.",
+                    "Maintaining Unity visualization stack."
+                ],
+                lookingFor: [
+                    "Github, Python, C (or C++ and willingness to learn), ROS2, Unity, OpenCV",
+                    "Understanding of spec sheets, oscilloscope usage, and interested in learning ground control software (QGC)",
+                    "Solidworks Assembly experience (MEEN 210/ CSWA level)"
+                ]
+            },
+            germ: {
+                title: "GERM",
+                lead: "Jordan Durst",
+                email: "jordandurst@tamu.edu",
+                description: "GERM (Germination) is a self-regulating box that grows plants using an aeroponics system. Plants will receive nutrients to the exposed roots via a sprayer, light from LED grow lights, and temperature regulation via an internal fan to automate plant growth.",
+                goals: [
+                    "We plan to redesign the lighting system to reduce heat damage, improve cable management in the electronics box, and ensure all systems can run simultaneously.",
+                    "The box needs to be fully water-resistant with a redesigned sink to hold the water.",
+                    "By the end of the semester, we will start growing our first plants!"
+                ],
+                lookingFor: [
+                    "Mechanical Design (SolidWorks) for the Design of Internal Structures of the Box",
+                    "Electrical Circuit and/or PCB Design for Reducing Clutter in Electronics Box",
+                    "Controls & Algorithms for Lighting System, Fan System, and Pump System for Optimizing Plant Growth"
+                ]
+            },
+            larm: {
+                title: "LARM",
+                lead: "Dharmik Patel",
+                email: "dharmik.p45@tamu.edu",
+                description: "Lab Assisting Robotic Manipulator (LARM) is an autonomous 6-DOF robot arm aimed at assisting in medical and wet-lab tasks. It will perform tasks such as syringe injection, pouring beakers, and stirring chemicals. These tasks would be performed autonomously, using inverse kinematics and motion planning to achieve smooth and accurate task execution.",
+                goals: [
+                    "We need to design the lower arm segment, which involves motor mounting, machined parts, and structural analyses.",
+                    "Design a gripper that can hold a beaker full of liquid.",
+                    "Design vaccine injector device.",
+                    "Design a base that will rotate the whole arm about the z-axis.",
+                    "Figure out basic positioning and motion planning to demonstrate a chemical mixing demo.",
+                    "Optimize our power solution for better organization & safety."
+                ],
+                lookingFor: [
+                    "CAD experience: Lots of parts will be 3D printed, along with a handful of custom metal parts.",
+                    "Electronics: Our power and wiring need to be more robust, using wire management, securing our electronics, and increasing safety.",
+                    "Willing to learn robot kinematics and planning as a team.",
+                    "Interest in medical/lab applications of robots."
+                ]
+            },
+            maze: {
+                title: "MAZE",
+                lead: "David Boosi",
+                email: "djb2005@tamu.edu",
+                description: "MAZE is a fully autonomous robot that navigates and maps a randomly generated cardboard maze using Lidar technology and fast marching tree algorithms. Upon navigating the entire maze, the robot will use collected data to compute the shortest path from the maze’s entrance to its exit.",
+                goals: [
+                    "MAZE members will assist in developing the physical robot throughout this upcoming semester.",
+                    "The hardware stack for the current CAD model needs to be finalized, and the preexisting path planning software needs to be updated to work with a two wheel differential drive base.",
+                    "Afterwards, kinematic and RPLidar software will be developed to test the path planning library and generate basic robot movement."
+                ],
+                lookingFor: [
+                    "Experience in C++ programming and algorithms",
+                    "Understanding of ROS2 usage and development",
+                    "Knowledge in control systems, path planning, and kinematics",
+                    "Familiarity with Lidar technology, microcontrollers, and other robotics hardware"
+                ]
+            },
+            olsn: {
+                title: "OLSN",
+                lead: "Will McGarity",
+                email: "wmcgarity777@tamu.edu",
+                description: "OLSN has taken up the task of providing an affordable and custom prosthetic hand for a local boy in Bryan, TX, born without a major portion of his right hand due to ABS (Amniotic Band Syndrome). This is being accomplished in two ways. First, creating an active mechanism using electromyographic sensing for everyday use. Second, on days the battery isn’t holding charge or the active mechanism fails to work, providing an alternative in the form of a passive, ratcheting mechanism.",
+                goals: [
+                    "Polish design for full hand, and make it more ergonomic/comfortable for human use.",
+                    "Create sleeve and mounting for electrical components using a scan conducted last semester.",
+                    "Make hand model parametric for easy adjustments in future updates to account for growth.",
+                    "Maintain (and hopefully provide) active prototype 1 and passive prototype 1 to the patient by the end of Fall 2025."
+                ],
+                lookingFor: [
+                    "General passion for prosthetics/related endeavours",
+                    "Biomedical: knowledge in integration of prosthetics to everyday use",
+                    "Mechanical: knowledge in CAD to parameterize and adjust model",
+                    "Electrical: knows sensors/electromyography or desire to learn"
+                ]
+            },
+            pobs: {
+                title: "POBS",
+                lead: "Malcolm Ferguson",
+                email: "malcolm@tamu.edu",
+                description: "The Positive Operative Buoyancy Submersible (POBS) aims to develop a submarine that floats on the surface of any water feature, using motor propulsion to submerge and control the vessel's depth. Using sensors, the POBS submersible will be used to collect data in aquatic environments, and we plan to collaborate with an AUV team in Galveston, known as TART, to collect shore data for research purposes. POBS also has two other submarines in the works: A turtle-shaped outreach submarine known as the mini turtle and a racing submarine built for competitions. Additionally, POBS is also building aquatic simulation environments through Ansys.",
+                goals: [
+                    "This semester, we are looking to launch the POBS research vessel and our outreach Mini-Turtle.",
+                    "We will also be working on the racing sub, with the potential to launch this submarine as well.",
+                    "We will also be actively developing multiple aquatic simulation environments to explore how different submarine designs interact in various environments."
+                ],
+                lookingFor: [
+                    "AERO, CSCP, CPEN, ELEN, EVEN, MEEN, MSEN, MXET, OCEN majors, or anyone else who enjoys learning and is looking to expand their horizons! Your major will not be a determining factor.",
+                    "Experience with electronics, especially waterproofed components.",
+                    "Understanding in - or willing to learn - controls and fluid dynamics.",
+                    "Understanding of ROS2 development and/or Raspberry Pi’s.",
+                    "Mini Turtle specific: Advanced CAD Experience - we will be utilizing SolidWorks 2024.",
+                    "Racing Sub specific: Advanced CAD Experience - we will be utilizing SolidWorks 2024.",
+                    "Simulation Team specific: Experience in Fluid Simulations is welcome. (Ansys, SolidWorks, DualSPHysics, Blender, etc; Not required)"
+                ]
+            },
+            virt: {
+                title: "VIRT",
+                lead: "Raquel Garcia",
+                email: "raquelgarcia@tamu.edu",
+                description: "VIRT is a harmless sentry turret that will find, track, and follow a target with an Xilinx FPGA-driven CV system. Currently, the objective is to use a target object of known size and color with a single camera.",
+                goals: [
+                    "Finish camera to HDMI configuration file",
+                    "Create first prototype of simple color-filtering CV system on FPGA",
+                    "Program motor controls for current small prototype",
+                    "Print and assemble larger chassis design"
+                ],
+                lookingFor: [
+                    "Low-level hardware development (Verilog, C)",
+                    "Mechanical design (SolidWorks, knowledge of motor systems)",
+                    "Motor controls"
+                ]
+            },
+            quad: {
+                title: "QUAD",
+                lead: "Ian Lansdowne",
+                email: "ianl@tamu.edu",
+                description: "QUAD is developing a four-legged robot that walks like a dog, balancing and adapting to its environment. The project explores the potential and challenges of legged locomotion.",
+                goals: [
+                    "We’re building a full-sized quadruped using brushless motors and cycloidal gearboxes.",
+                    "Members will help design and assemble the legs and chassis, program the robot, and develop a control algorithm for coordinated leg movement."
+                ],
+                lookingFor: [
+                    "Mechanical design (SolidWorks)",
+                    "Control systems and algorithms",
+                    "Robotics programming (Python)"
+                ]
+            }
+        };
+
+        // Function to generate the HTML for a single project card
+        const createProjectCard = (projectKey) => {
+            const project = projectData[projectKey];
+            return `
+                <a href="#project-${projectKey}" class="block">
+                    <div class="bg-white p-6 rounded-xl shadow-lg transform transition duration-300 hover:scale-105 border-2 border-black h-full">
+                        <h3 class="text-2xl font-bold text-[#800000] mb-2">${project.title}</h3>
+                        <p class="text-gray-700">${project.description.substring(0, 150)}...</p>
+                        <span class="text-[#800000] hover:underline mt-4 inline-block">Learn More →</span>
+                    </div>
+                </a>
+            `;
+        };
+
+        // Function to generate the HTML for a single project's detailed page
+        const createProjectPage = (projectKey) => {
+            const project = projectData[projectKey];
+            if (!project) {
+                return `
+                    <section class="container mx-auto px-4 py-16 md:py-24 text-gray-800">
+                        <h1 class="text-4xl md:text-5xl font-bold text-black mb-8 text-center">Project Not Found</h1>
+                        <p class="text-lg text-gray-700 text-center">The project you are looking for does not exist.</p>
+                    </section>
+                `;
+            }
+
+            const goalsList = project.goals.map(goal => `
+                <li class="flex items-start mb-2"><span class="text-[#800000] text-xl mr-2">✔</span><p class="text-lg text-gray-700">${goal}</p></li>
+            `).join('');
+
+            const lookingForList = project.lookingFor.map(skill => `
+                <li class="flex items-start mb-2"><span class="text-[#800000] text-xl mr-2">●</span><p class="text-lg text-gray-700">${skill}</p></li>
+            `).join('');
+
+            return `
+                <section class="container mx-auto px-4 py-16 md:py-24 text-gray-800">
+                    <div class="flex items-center mb-6">
+                        <a href="#projects" class="text-[#800000] hover:underline font-bold transition-colors duration-300 flex items-center">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                            </svg>
+                            Back to Projects
+                        </a>
+                    </div>
+                    <div class="bg-white p-8 md:p-12 rounded-3xl shadow-lg border-2 border-black">
+                        <h1 class="text-4xl md:text-5xl font-bold text-black mb-4">${project.title}</h1>
+                        <p class="text-lg text-gray-600 mb-6 font-semibold">Project Lead: ${project.lead} (<a href="mailto:${project.email}" class="text-[#800000] hover:underline">${project.email}</a>)</p>
+
+                        <h2 class="text-2xl font-bold text-black mb-4">Project Description</h2>
+                        <p class="text-lg text-gray-700 mb-6 leading-relaxed">${project.description}</p>
+                        
+                        <h2 class="text-2xl font-bold text-black mt-8 mb-4">Fall 2025 Goals</h2>
+                        <ul class="space-y-2">
+                            ${goalsList}
+                        </ul>
+
+                        <h2 class="text-2xl font-bold text-black mt-8 mb-4">Looking For</h2>
+                        <ul class="space-y-2">
+                            ${lookingForList}
+                        </ul>
+                    </div>
+                </section>
+            `;
+        };
+
+        // Use an object to store the HTML content for each page
+        const pages = {
+            home: `
+                <!-- Hero Section with White background -->
+                <section class="bg-white w-full py-20 px-4 md:py-32 md:px-8 text-gray-800 rounded-b-3xl">
+                    <div class="container mx-auto text-center">
+                        <h1 class="text-4xl md:text-6xl font-extrabold text-black mb-4 animate-fadeIn">Pioneering the Future of Robotics at A&M University</h1>
+                        <p class="text-lg md:text-xl text-gray-700 mb-8 max-w-3xl mx-auto animate-fadeIn delay-1s">
+                            Leading innovation through advanced research, competitions, and hands-on learning.
+                        </p>
+                        <!-- Button is now maroon with a black border -->
+                        <a href="#projects" class="bg-[#800000] text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-red-900 border-2 border-black transition-all duration-300 transform hover:scale-105 inline-block">
+                            Explore Projects
+                        </a>
+                    </div>
+                </section>
+                
+                <!-- Stats Section -->
+                <section class="container mx-auto px-4 py-16 md:py-24">
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                        <div class="bg-white p-6 rounded-xl shadow-lg transform transition duration-300 hover:scale-105 border-2 border-black">
+                            <!-- Number text is now back to maroon -->
+                            <h3 class="text-4xl font-bold text-[#800000] mb-2">13</h3>
+                            <p class="text-gray-600">Advanced Research Projects</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg transform transition duration-300 hover:scale-105 border-2 border-black">
+                            <h3 class="text-4xl font-bold text-[#800000] mb-2">2</h3>
+                            <p class="text-gray-600">Competition Teams</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg transform transition duration-300 hover:scale-105 border-2 border-black">
+                            <h3 class="text-4xl font-bold text-[#800000] mb-2">150+</h3>
+                            <p class="text-gray-600">Student Researchers</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg transform transition duration-300 hover:scale-105 border-2 border-black">
+                            <h3 class="text-4xl font-bold text-[#800000] mb-2">110+</h3>
+                            <p class="text-gray-600">Hatchling Members</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Featured Projects Section on Home Page -->
+                <section id="our-projects" class="container mx-auto px-4 py-16 md:py-24 text-gray-800">
+                    <div class="flex justify-between items-center mb-8">
+                        <h2 class="text-3xl md:text-4xl font-bold text-black">Our Research Projects</h2>
+                        <a href="#projects" class="text-[#800000] font-bold hover:underline">Explore Projects →</a>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Project card 1 -->
+                        <a href="#project-fash" class="block">
+                            <div class="bg-white p-6 rounded-xl shadow-lg transform transition duration-300 hover:scale-105 border-2 border-black">
+                                <h3 class="text-2xl font-bold text-[#800000] mb-2">FASH</h3>
+                                <p class="text-gray-700">FASH aims to design aesthetically pleasing and assistive robotic garments. The main objective is to develop a wearable robotic corset that provides posture adjustment, motion sensing, and biomechanical feedback.</p>
+                                <span class="text-[#800000] hover:underline mt-4 inline-block">Learn More →</span>
+                            </div>
+                        </a>
+                        <!-- Project card 2 -->
+                        <a href="#project-pobs" class="block">
+                            <div class="bg-white p-6 rounded-xl shadow-lg transform transition duration-300 hover:scale-105 border-2 border-black">
+                                <h3 class="text-2xl font-bold text-[#800000] mb-2">POBS</h3>
+                                <p class="text-gray-700">The Positive Operative Buoyancy Submersible (POBS) aims to develop a submarine that floats on the surface of any water feature, using motor propulsion to submerge and control the vessel's depth. </p>
+                                <span class="text-[#800000] hover:underline mt-4 inline-block">Learn More →</span>
+                            </div>
+                        </a>
+                        <!-- Project card 3 -->
+                        <a href="#project-snout" class="block">
+                            <div class="bg-white p-6 rounded-xl shadow-lg transform transition duration-300 hover:scale-105 border-2 border-black">
+                                <h3 class="text-2xl font-bold text-[#800000] mb-2">SNOUT</h3>
+                                <p class="text-gray-700">SNOUT will design a robotic vehicle equipped with advanced olfactory sensors. The robot will use its "sense of smell" to detect and identify scents for applications ranging from harmful drugs to gas leak detection.</p>
+                                <span class="text-[#800000] hover:underline mt-4 inline-block">Learn More →</span>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+                
+                <!-- Hatchling Program Section -->
+                <section class="container mx-auto px-4 py-16 md:py-24">
+                    <div class="bg-white p-8 md:p-12 rounded-3xl shadow-lg flex flex-col md:flex-row items-center gap-8">
+                        <div class="md:w-1/2">
+                            <h2 class="text-3xl md:text-4xl font-bold text-black mb-4">TURTLE Hatchling Program</h2>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                                Our intensive accelerator program is designed to fast-track students' robotics skills through hands-on projects, expert mentorship, and cutting-edge resources.
+                            </p>
+                            <ul class="space-y-2 text-gray-700 text-lg mb-6">
+                                <!-- Checkmarks are now back to maroon -->
+                                <li class="flex items-center"><span class="text-[#800000] mr-2">✔</span>Robotics Programming</li>
+                                <li class="flex items-center"><span class="text-[#800000] mr-2">✔</span>Electronics</li>
+                                <li class="flex items-center"><span class="text-[#800000] mr-2">✔</span>Soldering</li>
+                                <li class="flex items-center"><span class="text-[#800000] mr-2">✔</span>Solidworks</li>
+                            </ul>
+                            <!-- Button remains maroon -->
+                            <a href="#hatchling" class="bg-[#800000] text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-red-900 transition-all duration-300 transform hover:scale-105 inline-block">
+                                Explore Program
+                            </a>
+                        </div>
+                        <div class="md:w-1/2">
+                            <!-- Placeholder image or graphic -->
+                            <div class="bg-gray-200 w-full h-64 rounded-xl flex items-center justify-center">
+                                <span class="text-gray-500 text-lg">Hatchling Program Image</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Get Involved Section -->
+                <section class="container mx-auto px-4 py-16 md:py-24">
+                    <h2 class="text-3xl md:text-4xl font-bold text-black text-center mb-12">Get Involved</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-white p-8 rounded-3xl shadow-lg border-2 border-black">
+                            <h3 class="text-2xl font-bold text-[#800000] mb-4">For Students</h3>
+                            <p class="text-gray-700 mb-6">
+                                Interested in robotics? Join TURTLE and work on projects that push the boundaries of what's possible.
+                            </p>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-center"><span class="text-[#800000] mr-2">✔</span>Hands-on Experience</li>
+                                <li class="flex items-center"><span class="text-[#800000] mr-2">✔</span>Academic Supplementation</li>
+                                <li class="flex items-center"><span class="text-[#800000] mr-2">✔</span>Career Development</li>
+                            </ul>
+                            <!-- Button with maroon background and a black border -->
+                            <a href="#contact" class="mt-6 inline-block bg-[#800000] text-white font-bold py-2 px-6 rounded-full hover:bg-red-900 border-2 border-black transition duration-300">
+                                Apply Now
+                            </a>
+                        </div>
+                        <div class="bg-white p-8 rounded-3xl shadow-lg border-2 border-black">
+                            <h3 class="text-2xl font-bold text-[#800000] mb-4">For Companies</h3>
+                            <p class="text-gray-700 mb-6">
+                                Partner with our robotics lab to access cutting-edge talent, and solve complex challenges.
+                            </p>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-center"><span class="text-[#800000] mr-2">✔</span>Research Partnerships</li>
+                                <li class="flex items-center"><span class="text-[#800000] mr-2">✔</span>Talent Pipeline</li>
+                                <li class="flex items-center"><span class="text-[#800000] mr-2">✔</span>Technology Transfer</li>
+                            </ul>
+                            <!-- Button with maroon background and a black border -->
+                            <a href="#contact" class="mt-6 inline-block bg-[#800000] text-white font-bold py-2 px-6 rounded-full hover:bg-red-900 border-2 border-black transition duration-300">
+                                Contact Us
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            `,
+            about: `
+                <!-- About Us Section -->
+                <section class="container mx-auto px-4 py-16 md:py-24 text-gray-800">
+                    <h1 class="text-4xl md:text-5xl font-bold text-black mb-8 text-center">About Turtle Robotics</h1>
+                    <div class="bg-white p-8 md:p-12 rounded-3xl shadow-lg border-2 border-black">
+                        <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                            Our robotics research lab at Texas A&M University is dedicated to pushing the boundaries of what's possible in robotics technology. With 13 advanced research projects covering a broad range of industries, there is something for everyone.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            We believe in hands-on learning and fostering a collaborative environment where students can turn innovative ideas into reality. Our goal is to train the next generation of robotics pioneers.
+                        </p>
+                    </div>
+                </section>
+            `,
+            hatchling: `
+                <!-- Hatchling Program Details -->
+                <section class="container mx-auto px-4 py-16 md:py-24 text-gray-800">
+                    <h1 class="text-4xl md:text-5xl font-bold text-black mb-8 text-center">TURTLE Hatchling Program</h1>
+                    <div class="bg-white p-8 md:p-12 rounded-3xl shadow-lg border-2 border-black">
+                        <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                            The Hatchling Program is a new initiative from TURTLE Robotics aimed at providing new students with the fundamental skills they need to succeed in our research lab. The program is designed to be a fast-track to robotics knowledge, covering essential topics such as electronics, soldering, SolidWorks, and basic programming.
+                        </p>
+                        <h2 class="text-3xl font-bold text-black mb-4 mt-8">What You'll Learn</h2>
+                        <ul class="space-y-2 text-gray-700 text-lg mb-6">
+                            <li class="flex items-center"><span class="text-[#800000] mr-2">✔</span>Robotics Programming: Python, C++, ROS 2</li>
+                            <li class="flex items-center"><span class="text-[#800000] mr-2">✔</span>Electronics: From breadboards to PCBs</li>
+                            <li class="flex items-center"><span class="text-[#800000] mr-2">✔</span>Soldering: Through-hole and surface mount techniques</li>
+                            <li class="flex items-center"><span class="text-[#800000] mr-2">✔</span>SolidWorks: 3D CAD modeling</li>
+                        </ul>
+                        <h2 class="text-3xl font-bold text-black mb-4 mt-8">Projects</h2>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                            Participants in the Hatchling Program will work on a series of guided projects designed to apply the skills they are learning. This hands-on approach ensures that students gain practical experience and build confidence in their abilities.
+                        </p>
+                    </div>
+                </section>
+            `,
+            contact: `
+                <!-- Contact Us Section -->
+                <section class="container mx-auto px-4 py-16 md:py-24 text-gray-800">
+                    <h1 class="text-4xl md:text-5xl font-bold text-black mb-8 text-center">Contact Us</h1>
+                    <div class="bg-white p-8 md:p-12 rounded-3xl shadow-lg border-2 border-black">
+                        <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                            We'd love to hear from you! Whether you're a prospective student, a company interested in partnership, or just curious about our work, please reach out to us.
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <h3 class="text-2xl font-bold text-black mb-2">Our Location</h3>
+                                <p class="text-lg text-gray-700">TURTLE Robotics Lab</p>
+                                <p class="text-lg text-gray-700">Texas A&M University</p>
+                                <p class="text-lg text-gray-700">College Station, TX 77845</p>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-black mb-2">Email</h3>
+                                <p class="text-lg text-gray-700">General Inquiries: <a href="mailto:TurtleRobotics@tamu.edu" class="text-[#800000] hover:underline">TurtleRobotics@tamu.edu</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `
+        };
+
+        const mainContent = document.getElementById('content');
+
+        // This function will render the appropriate page content based on the URL hash
+        function renderPage() {
+            let pageName = window.location.hash.substring(1) || 'home';
+            let content = '';
+
+            // Handle the projects page differently, generating the list from data
+            if (pageName === 'projects') {
+                let newProjectsHtml = '';
+                let continuingProjectsHtml = '';
+                
+                // Manually separate projects into "new" and "continuing" based on the prompt's layout
+                const newProjects = ['fash', 'snout', 'swrm', 'star', 'orio', 'amps', 'vest', 'cntr', 'ache', 'eden'];
+                const continuingProjects = ['ankl', 'beest', 'blnc', 'cmbt', 'dron', 'germ', 'larm', 'maze', 'olsn', 'pobs', 'virt', 'quad'];
+                
+                newProjects.forEach(key => {
+                    newProjectsHtml += createProjectCard(key);
+                });
+                
+                continuingProjects.forEach(key => {
+                    continuingProjectsHtml += createProjectCard(key);
+                });
+
+                content = `
+                    <section class="container mx-auto px-4 py-16 md:py-24 text-gray-800">
+                        <h1 class="text-4xl md:text-5xl font-bold text-black mb-8 text-center">Our Research Projects</h1>
+                        
+                        <h2 class="text-3xl font-bold text-black mb-6 mt-12">New Projects</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                            ${newProjectsHtml}
+                        </div>
+                        
+                        <h2 class="text-3xl font-bold text-black mb-6 mt-12">Continuing Projects</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            ${continuingProjectsHtml}
+                        </div>
+                    </section>
+                `;
+            } else if (pageName.startsWith('project-')) {
+                // Handle individual project pages
+                const projectKey = pageName.substring('project-'.length);
+                content = createProjectPage(projectKey);
+            } else {
+                // For all other pages, use the pre-defined content
+                content = pages[pageName] || pages.home;
+            }
+
+            mainContent.innerHTML = content;
+            mainContent.scrollIntoView({ behavior: 'smooth' });
+
+            // Highlight the active navigation link
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('text-[#800000]', 'font-semibold');
+                link.classList.add('text-gray-600');
+                if (link.getAttribute('href') === `#${pageName}`) {
+                    link.classList.add('text-[#800000]', 'font-semibold');
+                    link.classList.remove('text-gray-600');
+                }
+                // Special handling for project pages: highlight the main 'Projects' link
+                if (pageName.startsWith('project-') && link.getAttribute('href') === '#projects') {
+                    link.classList.add('text-[#800000]', 'font-semibold');
+                    link.classList.remove('text-gray-600');
+                }
+            });
+        }
+
+        // Add a listener for hash changes to handle navigation
+        window.addEventListener('hashchange', renderPage);
+
+        // Initial page render on load
+        window.addEventListener('load', () => {
+            renderPage();
+            // Animate on load
+            document.querySelectorAll('.animate-fadeIn').forEach(el => el.style.opacity = '1');
+        });
+
+    </script>
+</body>
+</html>
